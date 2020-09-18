@@ -1,0 +1,9 @@
+@startuml
+weixinApp-> weixinApp:login
+weixinApp-> server: Authentication Request(code)
+server --> weixinServer: Authentication Request(code)
+
+weixinServer-> server: Auth Info(session key,openId)
+server->server:register(openId)&login(openId)
+server-> weixinApp: token
+@enduml
