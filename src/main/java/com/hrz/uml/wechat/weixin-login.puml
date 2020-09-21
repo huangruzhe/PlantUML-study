@@ -1,9 +1,9 @@
 @startuml
-weixinApp-> weixinApp:login
-weixinApp-> server: Authentication Request(code)
-server --> weixinServer: Authentication Request(code)
-
-weixinServer-> server: Auth Info(session key,openId)
-server->server:register(openId)&login(openId)
+weixinApp-> weixinServer:小程序调用登录
+weixinServer->weixinApp:返回code
+weixinApp-> server: 将code上传
+server --> weixinServer: 将code传给微信服务器
+weixinServer->server:返回sessionKey及openId
+server->server:注册(openId)并登录(openId)
 server-> weixinApp: token
 @enduml

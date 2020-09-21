@@ -1,0 +1,17 @@
+@startuml
+weixinApp-> weixinApp:用户小程序下单
+weixinApp-> server: 请求支付接口
+server --> weixinServer: 调用小程序登录
+weixinServer-> server: 返回Openid()
+server->server:生成商户订单()
+server->weixinServer: 调用支付统一下单API()
+weixinServer->server: 返回预付单信息(prepay_id)
+server->server: 将组合数据再次签名()
+server->weixinApp:返回支付参数(5个参数和sign)
+weixinApp->weixinApp:用户确认支付
+weixinApp->weixinServer:鉴权调用支付()
+weixinServer->weixinApp:返回支付结果()
+weixinApp->weixinApp:展示支付信息
+weixinServer->server:推送推送结果
+server->server:更新订单状态()
+@enduml
