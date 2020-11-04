@@ -1,0 +1,14 @@
+@startuml
+aliApp-> aliApp:用户APP或者Web网站下单
+aliApp-> server: 调取生成订单接口
+server --> aliServer: 请求创建订单
+aliServer --> aliServer: 创建带商户签名的订单
+aliServer->server:返回到服务器带商户签名订单
+server->aliApp: 返回到APP带商户签名订单
+aliApp->aliApp: 调取支付宝或者网页请求支付
+aliApp->aliServer: 支付宝或者网页将支付信息传递给阿里服务器
+aliServer->aliApp:返回支付结果
+aliServer->server:同步推送消息给server
+server->server:更新订单状态
+server->aliApp:展示支付结果
+@enduml
